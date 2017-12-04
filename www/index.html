@@ -285,7 +285,7 @@
     z-index: 9999999999999999;
     padding: 2em;
 "><button  type="button" class="btn btn-danger" style="float:right; max-width:3em; min-width:3em !important; max-height:3em; " ontouchend="$('#testnetwarning').hide();">X</button>
-<br><center><h2>WARNING THIS IS AN ALPHA</h2><p>Do NOT send real XRP. This wallet is connected to the RIPPLE TESTNET.</p></center>
+<br><center><h2>WARNING THIS IS AN ALPHA</h2><p>Do NOT send real CSC. This wallet is connected to the CasinoCoin TESTNET.</p></center>
 </div>
 
 <div id="tabbackup2" class="screentab" data-primarytab="false" hasback="true" data-title="Encrypted Backup" style="display: none;">
@@ -342,7 +342,7 @@
 
     color:red;
 
-    ">only way for you to regain access to your XRP.</u>&nbsp;
+    ">only way for you to regain access to your CSC.</u>&nbsp;
     Never share your recovery phrase with anyone.</p></div>
 
 <div><p style="color:black; text-align:justify; font-weight:bold;">This recovery phrase is <u style="color:red">useless without a backup</u>. Please make a backup using the settings menu <u style="color:red">after</u> you finish adding or generating <u style="color:red">all</u> of your addresses. Toast Wallet backups are <u style="color:red">data backups</u>, this means you will <u style="color:red">only have access to the addresses you had in your wallet at the time you made the backup!</u></p></div>
@@ -376,7 +376,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
         <div>
                 <input  type="password" id="rsecaccpassword" class="form-control" placeholder="">
         </div><br>
-	<center><div><button  type="button" class="btn btn-primary" id="btnrevealsecret" ontouchend="doRevealRippleSecret($('#rsecaccpassword').val(), $('#accdetailssecretaddress').val());">Reveal Ripple Secret</button></div></center>
+	<center><div><button  type="button" class="btn btn-primary" id="btnrevealsecret" ontouchend="doRevealRippleSecret($('#rsecaccpassword').val(), $('#accdetailssecretaddress').val());">Reveal CasinoCoin Secret</button></div></center>
 	<center>
 		<label id="lblaccsecret">Account Secret</label>
 		<input type="text" id="accsecret" style="color:blue" oninput="$(this).val($(this).data('content'));" >
@@ -400,7 +400,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 </div>
 
 <div id="tabnickchange" class="screentab" data-hasback="true" data-title="Change Nickname" style="display:none">
-	<label >Ripple Address</label>
+	<label >CasinoCoin Address</label>
 		<input  class="form-control" readonly="readonly" type="text" placeholder=""  id="nickchangeaddress">
 	<br>
         <label >Account Nickname (optional)</label>
@@ -423,7 +423,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 		<li id="btnaccdetailsselecttransactions" ontouchend="$('.accdetailsinnertabselected').removeClass('accdetailsinnertabselected'); $('#btnaccdetailsselecttransactions').addClass('accdetailsinnertabselected'); $('#accdetailsaddressdetails').hide(); $('#accdetailstransactiondetails').show(); checkConnection(function(){doGetTransactions($('#accdetailsaddress').data('content'), '');});" class="">Transactions</li>
 	</ul>
 	<div id="accdetailsaddressdetails" class="innertab">
-		<div style="color:black"><span id="accdetailsnickname">Ripple address</span><span id="accdetailsamount" class="amount" style="color:black;"></span></div><br>
+		<div style="color:black"><span id="accdetailsnickname">CasinoCoin address</span><span id="accdetailsamount" class="amount" style="color:black;"></span></div><br>
 		<div class="input-group">
 			<input type="text" oninput="$(this).val($(this).data('content'));" id="accdetailsaddress" style="color:black">
 			<span class="input-group-btn">
@@ -451,13 +451,13 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 </div>
 
 <div id="tabaddexistingaccount" class="screentab" data-hasback="true" data-title="Add Existing Account" style="display:none">
-	<label >Ripple Secret</label>
+	<label >CasinoCoin Secret</label>
 	<div class="input-group">
 		<input  class="form-control" type="text" placeholder="Enter your secret key here"  id="txtsecret">
 		<span class="input-group-btn"><button  class="btn btn-primary" type="button" ontouchend='scanQR("#txtsecret");'>QR</button></span>
 	</div>
 	<br>
-	<label >Ripple Address (leave blank to generate from secret)</label>
+	<label >CasinoCoin Address (leave blank to generate from secret)</label>
 		<input  class="form-control" type="text" placeholder=""  id="vanityaddr">
 	<br>
         <label >Account Nickname (optional)</label>
@@ -578,7 +578,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 		<input  type="password" id="setpassword2" class="form-control" placeholder="">
 	</div>
 	<br>
-	<p style="color:black; text-align: justify;">Your passphrase will be used to encrypt your wallet. You will only enter it when you wish to send XRP. It should be long and strong. Never share it with anyone.</p>
+	<p style="color:black; text-align: justify;">Your passphrase will be used to encrypt your wallet. You will only enter it when you wish to send CSC. It should be long and strong. Never share it with anyone.</p>
 	<br>
 	<center>
 		<button  class="btn btn-primary" id="btnsetpassphrase" type="button" ontouchend="doResetPassphrase($('#setpassword1').val(), $('#setpassword2').val(), '', function(){blockInput(); setAndShowNewRecoveryPhrase($('#setpassword1').val());}, true);">Set Passphrase</button>
@@ -689,7 +689,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	</span>
 	</div>
 	<br/>
-	<div><center style="color:black;">The Ripple network requires a minimum <span id="minxrp"></span> XRP balance at all times and charges fees based on congestion even for failed transactions.</center></div>
+	<div><center style="color:black;">The CasinoCoin network requires a minimum <span id="minxrp"></span> CSC balance at all times and charges fees based on congestion even for failed transactions.</center></div>
 
 </div>
 
@@ -909,9 +909,9 @@ function showDonationTab(){
 			exchangerate += parseFloat("" + orders.asks[i].properties.makerExchangeRate);
 		exchangerate = 10.0/exchangerate;
 			
-		$("#btndonate20")[0].innerHTML = "Donate $20 (" + (20.0/exchangerate).toFixed(4) + " XRP)";
-		$("#btndonate10")[0].innerHTML = "Donate $10 (" + (10.0/exchangerate).toFixed(4) + " XRP)";
-		$("#btndonate5")[0].innerHTML = "Donate $5 (" + (5.0/exchangerate).toFixed(4) + " XRP)";
+		$("#btndonate20")[0].innerHTML = "Donate $20 (" + (20.0/exchangerate).toFixed(4) + " CSC)";
+		$("#btndonate10")[0].innerHTML = "Donate $10 (" + (10.0/exchangerate).toFixed(4) + " CSC)";
+		$("#btndonate5")[0].innerHTML = "Donate $5 (" + (5.0/exchangerate).toFixed(4) + " CSC)";
 
 		$("#btndonate20").data('amount', (20.0/exchangerate).toFixed(4));
 		$("#btndonate10").data('amount', (10.0/exchangerate).toFixed(4));
@@ -1186,17 +1186,17 @@ function doSelectAccount(accselected, nickname) {
 	$("#ra" + accselected).addClass("active");
 	activeaccount = accselected;
 	$("#fromaccountslist>*:not(.bottom-list-button)").remove();
-	$("#fromaccountslist").prepend('<li class="list-group-item accountitem active"><a href="#"><span class="address">'+accselected+'</span></a><span class="amount">'+( accountbalances[accselected] == undefined ? '' :  accountbalances[accselected] + " XRP")+'</span></li>');
+	$("#fromaccountslist").prepend('<li class="list-group-item accountitem active"><a href="#"><span class="address">'+accselected+'</span></a><span class="amount">'+( accountbalances[accselected] == undefined ? '' :  accountbalances[accselected] + " CSC")+'</span></li>');
 
 
 	showTab("#tabaccountdetails");	
-	$("#accdetailsamount")[0].innerText = ( accountbalances[accselected] == undefined ? 0 :  accountbalances[accselected] ) + ' XRP';
+	$("#accdetailsamount")[0].innerText = ( accountbalances[accselected] == undefined ? 0 :  accountbalances[accselected] ) + ' CSC';
 	$("#accdetailsaddress").data('content', accselected );
 
 	$("#accdetailsqr").empty();
 	$("#accdetailsqr").append(kjua({text: accselected}));
 	
-	$("#accdetailsnickname")[0].innerText = (nickname == undefined || nickname == "" ? "Ripple address" : nickname);
+	$("#accdetailsnickname")[0].innerText = (nickname == undefined || nickname == "" ? "CasinoCoin address" : nickname);
 
 	
 	$("#accdetailsaddress").val( accselected );
@@ -1449,7 +1449,7 @@ function refreshAccounts() {
 								var amount = Math.floor(100.00 * exchangerate * parseFloat("" + xrpBalance))/100.0;
 								usdbalance = '<br><div class="amount"><small style="opacity:0.7;">(' + amount.toFixed(2) + ' USD)</small></div>';
 							}
-							$("#ra" + account + ">.amount")[0].innerHTML = xrpBalance + " XRP" + usdbalance;
+							$("#ra" + account + ">.amount")[0].innerHTML = xrpBalance + " CSC" + usdbalance;
 				
 						} catch(e) {handle_error(e);}
 						accountbalances[account] = parseFloat(xrpBalance);
@@ -1930,7 +1930,7 @@ function doImportExistingAccount(passphrase, nickname, secret, vanityaddr) {
 	generatedAccount.secret = secret;
 	if (vanityaddr != "" && vanityaddr != undefined) {
 		if (!validateAddress(vanityaddr)) {
-			navigator.notification.alert("The Ripple address you've specified is invalid. If you have an ordinary address do not put anything in this field, it will be generated from your secret. If you have a vanity or setRegularKey address then you should use this field.", 
+			navigator.notification.alert("The CasinoCoin address you've specified is invalid. If you have an ordinary address do not put anything in this field, it will be generated from your secret. If you have a vanity or setRegularKey address then you should use this field.",
 				function(){
 					$('#vanityaddr').focus();
 					unblockInput();
@@ -2056,7 +2056,7 @@ function doConfirmPay(passphrase) {
 								}
 						}, 
 						function() {
-							navigator.notification.alert("An error occured when trying to make your payment. Most likely lack of funds in the account you are sending from. (The network requires a minimum account balance.) This error can also be caused by an invalid or not activated destination address or if the Ripple network is overloaded.", 
+							navigator.notification.alert("An error occured when trying to make your payment. Most likely lack of funds in the account you are sending from. (The network requires a minimum account balance.) This error can also be caused by an invalid or not activated destination address or if the CasinoCoin network is overloaded.",
 							function(){
 								lastpaidnonce = "";
 								showTab(-1);
@@ -2162,7 +2162,7 @@ function doPay(nonce) {
 	if (validateAddress(payto)) {
 		// valid
 	} else {
-		navigator.notification.alert("The destination address you have entered does not appear to be a valid Ripple address. You can still attempt to send but the Ripple network will charge a fee on failure.", 
+		navigator.notification.alert("The destination address you have entered does not appear to be a valid CasinoCoin address. You can still attempt to send but the CasinoCoin network will charge a fee on failure.",
 			function(){
 				$("#toaddress").focus();
 				unblockInput();
@@ -2202,7 +2202,7 @@ function doPay(nonce) {
 		$('#confirmpaytoaddress')[0].innerText = payto;
 		$('#confirmdesttag')[0].innerText = dest;
 		$('#confirminvoiceid')[0].innerText = ( invid == "" ? "(not provided)" : invid );
-		$('#confirmpayamount')[0].innerText = amount + " XRP";
+		$('#confirmpayamount')[0].innerText = amount + " CSC";
 
 		showTab("#tabpaymentconfirm");
 		
@@ -2212,7 +2212,7 @@ function doPay(nonce) {
 	if (payfrom in accountbalances) {
 		var balance = accountbalances[payfrom] - amount;
 		if (balance < xrpreserve) {
-			navigator.notification.confirm("You must leave " + xrpreserve + " XRP reserve in the account you are sending from. This is a Ripple network requirement. In some circumstances this message may appear in error if you believe that to be the case you can opt to attempt the transaction however this will attract a Ripple network fee." , 
+			navigator.notification.confirm("You must leave " + xrpreserve + " CSC reserve in the account you are sending from. This is a CasinoCoin network requirement. In some circumstances this message may appear in error if you believe that to be the case you can opt to attempt the transaction however this will attract a CasinoCoin network fee." ,
 				function(b){
 					if (debug) console.log("button selected: " + b);
 					if (b == 1) {
@@ -2222,7 +2222,7 @@ function doPay(nonce) {
 						unblockInput();
 					}
 				}, 
-				"XRP Reserve not met", 
+				"CSC Reserve not met",
 				[ "Try anyway", "Cancel" ]
 			);			
 			return;
@@ -2232,7 +2232,7 @@ function doPay(nonce) {
 		}
 	} else {
 
-		navigator.notification.confirm("Toast Wallet was unable to check your account balance at this time. Please confirm that you have left " + xrpreserve + " XRP reserve in your account before continuing.",
+		navigator.notification.confirm("Toast Wallet was unable to check your account balance at this time. Please confirm that you have left " + xrpreserve + " CSC reserve in your account before continuing.",
 			function(b){
 				if (b == 1) {
 					nextscreen();
@@ -2241,7 +2241,7 @@ function doPay(nonce) {
 					unblockInput();
 				}
 			}, 
-			"XRP balance not confirmed", 
+			"CSC balance not confirmed",
 			[ "Yes continue", "Cancel" ]
 		);			
 		return;
@@ -3083,7 +3083,7 @@ function importAddress(secret, address, nickname, passphrase, successfunc, failu
 				};
 
 				db.upsert("accounts", function(doc) { return { data: JSON.stringify(accounts)}; }).then(function(x){
-					navigator.notification.alert("Ripple address added successfully.", function(){}, "Success", "OK");
+					navigator.notification.alert("CasinoCoin address added successfully.", function(){}, "Success", "OK");
 					successfunc();
 				}).catch(function(x){
 					navigator.notification.alert("Failed to add address.", function(){}, "Error", "OK");
@@ -3104,7 +3104,7 @@ function importAddress(secret, address, nickname, passphrase, successfunc, failu
 	if (address == undefined) address = "";
 
 	if (!validateSecret(secret)) {
-		navigator.notification.alert("Invalid Ripple secret.", failurefunc, "Error", "OK");
+		navigator.notification.alert("Invalid CasinoCoin secret.", failurefunc, "Error", "OK");
 		return;
 	}
 
@@ -3629,7 +3629,7 @@ function connectToRipple(funcsuccess) {
 					xrpreserve = parseInt('' +   info['validatedLedger']['reserveBaseXRP']);
 					$("#minxrp")[0].innerHTML = "" + xrpreserve;
 			}).catch(e => {
-				console.log("xrp reserve request error: " + e);
+				console.log("csc reserve request error: " + e);
 			});
 			hideSpinner();	
 			funcsuccess();
