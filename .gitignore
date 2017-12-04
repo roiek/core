@@ -6,3 +6,6 @@ www/.index.html.swp
 *.swp
 *.swo
 .*.sw?
+.idea/*
+*.idea
+*.iml
