@@ -11,7 +11,8 @@
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 	<script src="js/lodash.js"></script>
 	<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-	<script src="js/ripple-0.17.7-debug.js"></script>
+	<script src="js/casinocoin-latest.js"></script>
+	<!--<script src="js/ripple-0.17.7-debug.js"></script>-->
 	<script src="js/pouchdb.min.js"></script>
 	<script src="js/pouchdb.upsert.min.js"></script>
 	<script src="cordova.js"></script>
@@ -19,7 +20,6 @@
 	<script src="js/sodium.js"></script>
 	<script src="js/clipboard.min.js"></script>
 	<script src="js/instascan.min.js"></script>
-	<script src="js/rippleutils-build.js"></script>
 	<script>if (window.module) module = window.module;
 	
 		window.onerror = function(message, url, lineNumber) {  
@@ -39,7 +39,7 @@
 <i id="morecontentindicator" class="fa fa-chevron-circle-down bounce" aria-hidden="true"></i>
 <script>
 	var debug = true;
-	var ontestnet = false;
+	var ontestnet = true;
 	var emergencybackup = false;
 
 	var xrpreserve = 20; // this will be updated by querying the server when it connects, if there's an error getting this data the default will be used
@@ -900,9 +900,9 @@ function showDonationTab(){
 	showTab('#tabdonate');
 	
 	remote.getOrderbook(
-		"rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B", 
-		{"base": {"currency":"USD", "counterparty": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B"}, 
-		"counter": {"currency":"XRP"}},  { limit: 10 }
+		"cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk", 
+		{"base": {"currency":"USD", "counterparty": "cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk"}, 
+		"counter": {"currency":"CSC"}},  { limit: 10 }
 	).then(orders => {
 		var exchangerate = 0;
 		for (var i = 0; i < 10; i++) 
@@ -1485,9 +1485,9 @@ function refreshAccounts() {
 	};
 
 	remote.getOrderbook(
-		"rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B", 
-		{"base": {"currency":"USD", "counterparty": "rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B"}, 
-		"counter": {"currency":"XRP"}},  { limit: 10 }
+		"cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk",
+		{"base": {"currency":"USD", "counterparty": "cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk"}, 
+		"counter": {"currency":"CSC"}},  { limit: 10 }
 	).then(orders => {
 		var exchangerate = 0;
 		for (var i = 0; i < 10; i++) 
@@ -1679,9 +1679,6 @@ function showTab(tab, dontClearText) {
 
 
 	$("#navheader").show();
-
-
-	
 
 	if (tab == -1) {
 		// unwind mode
@@ -2248,20 +2245,26 @@ function doPay(nonce) {
 	}
 }
 
+const server = ontestnet ? "ws://wst02.casinocoin.org:7007" : "wss://ws01.casinocoin.org:4443"
 
-var remote;
-if (ontestnet) {
-	remote = new ripple.RippleAPI({
-		server: 
-			"wss://s.altnet.rippletest.net:51233"
-		
-	});
-} else {
-	remote = new ripple.RippleAPI({
-		server: 
-			"wss://s1.ripple.com"
-	});
-}
+var remote = new casinocoin.CasinocoinAPI({
+    server: server // Public casinocoind server hosted by Casinocoin, Inc.
+});
+
+//
+//var remote;
+//if (ontestnet) {
+//	remote = new ripple.RippleAPI({
+//		server:
+//			"wss://s.altnet.rippletest.net:51233"
+//
+//	});
+//} else {
+//	remote = new ripple.RippleAPI({
+//		server:
+//			"wss://s1.ripple.com"
+//	});
+//}
 
 
 function showSpinner(msg) {
@@ -2626,7 +2629,7 @@ function setPin(pin, successfunc, failfunc) {
 		function(x){
 			successfunc();
 		}).catch(function(x){
-			failfun();
+			failfunc();
 		});
 	
 
@@ -3114,7 +3117,7 @@ function importAddress(secret, address, nickname, passphrase, successfunc, failu
 	} else {
 		// make sure the address is valid, either corresponding to the secret or corresponding to setregular key
 
-		var pubaddress = rippleKeypairs.deriveAddress(rippleKeypairs.deriveKeypair(secret).publicKey);
+		var pubaddress = casinocoinKeypairs.deriveAddress(casinocoinKeypairs.deriveKeypair(secret).publicKey);
 
 		if (pubaddress == address) {
 			// this is an ordinary account, continue
@@ -3594,7 +3597,7 @@ function generateAddress(secret) {
 	
 		return {
 			secret: secret,
-			address: 	rippleKeypairs.deriveAddress(	rippleKeypairs.deriveKeypair(secret).publicKey )
+			address: casinocoinKeypairs.deriveAddress(casinocoinKeypairs.deriveKeypair(secret).publicKey )
 		};
 	}
 }
@@ -3659,7 +3662,7 @@ function sendXRP(passphrase, fromacc, xrpAmount, destination, sourceTag, destTag
 			    address: fromacc,
 			    maxAmount: {
 			      value: xrpAmount + "",
-			      currency: 'XRP',
+			      currency: 'CSC',
 			    },
 		      	    tag: parseInt(sourceTag + "")
 			  },
@@ -3667,7 +3670,7 @@ function sendXRP(passphrase, fromacc, xrpAmount, destination, sourceTag, destTag
 			    address: destination,
 			    amount: {
 			      value: xrpAmount + "",
-			      currency: 'XRP',
+			      currency: 'CSC',
 			    },
 			    tag: parseInt(destTag + "")
 			  }
@@ -3712,14 +3715,14 @@ function sendXRP(passphrase, fromacc, xrpAmount, destination, sourceTag, destTag
 
 
 function validateAddress(x) {
-	return rippleAddressCodec.isValidAccountID(x);
+	return casinocoinAddressCodec.isValidAccountID(x);
 }
 
 function validateSecret(x) {
 
 	try {
-		rippleKeypairs.deriveAddress(
-			rippleKeypairs.deriveKeypair(x).publicKey
+		casinocoinKeypairs.deriveAddress(
+		casinocoinKeypairs.deriveKeypair(x).publicKey
 		); 
 	} catch(e) { return false; }
 
@@ -3730,35 +3733,28 @@ function validateSecret(x) {
 function doGetTransactions(address, marker) {
 	if (debug) console.log("doGetTransactions");
 	//blockInput();
-	$.ajax({
-		complete: function() { unblockInput(); },
-		url: 'https://data.ripple.com/v2/accounts/' + 
-		address + '/payments?currency=XRP&limit=10&descending=true&marker=' +
-		marker
-	}).done(function(x){
+	remote.getTransactions(address).then(function(x){
 		console.log(x);
 		var root = $('#accdetailstransactiondetails');
 		root.empty();
 		var tx = "";
 		var count = 0;
-		if (x.payments != undefined) {
-			for (var i in x.payments) {
-				tx += '<li class="txrow '+(x.payments[i].source == address ? 'txsent' : 'txreceived')+'" data-txhash="'+x.payments[i].tx_hash+'">';
-				if (x.payments[i].source == address) {
-					// outgoing payment
-					tx += '<span><i class="fa fa-paper-plane-o" aria-hidden="true"></i>';
-					tx += x.payments[i].destination + '</span>';
-					tx += '<span>' + x.payments[i].amount + '</span>';
+		for (var i in x) {
+			tx += '<li class="txrow '+(x[i].specification.source.address == address ? 'txsent' : 'txreceived')+'" data-txhash="+i+">';
+			if (x[i].specification.source.address == address) {
+				// outgoing payment
+				tx += '<span><i class="fa fa-paper-plane-o" aria-hidden="true"></i>';
+				tx += x[i].specification.destination.address + '</span>';
+				tx += '<span>' + x[i].specification.destination.amount.value + '</span>';
 
-				} else {
-					// incoming payment
-					tx += '<span><i class="fa fa-inbox" aria-hidden="true"></i>';
-					tx += x.payments[i].source + '</span>';
-					tx += '<span>' + x.payments[i].amount + '</span>';
-				}
-				tx += '</li>'
-				count++;
+			} else {
+				// incoming payment
+				tx += '<span><i class="fa fa-inbox" aria-hidden="true"></i>';
+				tx += x[i].specification.source.address + '</span>';
+				tx += '<span>' + x[i].outcome.deliveredAmount.value + '</span>';
 			}
+			tx += '</li>'
+			count++;
 		}
 		if (count == 0) {
 			tx = '<li style="color:black;"><center><i>No transactions found</i></center></li>';
