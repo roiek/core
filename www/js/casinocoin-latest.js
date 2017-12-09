@@ -50,7 +50,9 @@ var casinocoin =
 	module.exports = {
 	    CasinocoinAPI: __webpack_require__(1).CasinocoinAPI,
 	    // Broadcast api is experimental
-	    CasinocoinAPIBroadcast: __webpack_require__(666).CasinocoinAPIBroadcast
+	    CasinocoinAPIBroadcast: __webpack_require__(666).CasinocoinAPIBroadcast,
+	    CasinocoinKeypairs: __webpack_require__(332),
+	    CasinocoinAddressCodec: __webpack_require__(373)
 	};
 
 /***/ }),

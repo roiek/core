@@ -45,7 +45,7 @@ var casinocoin =
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	eval("'use strict'; // eslint-disable-line strict\n\nmodule.exports = {\n    CasinocoinAPI: __webpack_require__(1).CasinocoinAPI,\n    // Broadcast api is experimental\n    CasinocoinAPIBroadcast: __webpack_require__(666).CasinocoinAPIBroadcast\n};\n\n//////////////////\n// WEBPACK FOOTER\n// ./src/index.js\n// module id = 0\n// module chunks = 0\n//# sourceURL=webpack:///./src/index.js?");
+	eval("'use strict'; // eslint-disable-line strict\n\nmodule.exports = {\n    CasinocoinAPI: __webpack_require__(1).CasinocoinAPI,\n    // Broadcast api is experimental\n    CasinocoinAPIBroadcast: __webpack_require__(666).CasinocoinAPIBroadcast,\n    CasinocoinKeypairs: __webpack_require__(332),\n    CasinocoinAddressCodec: __webpack_require__(373)\n};\n\n//////////////////\n// WEBPACK FOOTER\n// ./src/index.js\n// module id = 0\n// module chunks = 0\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 /* 1 */

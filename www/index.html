@@ -13,7 +13,6 @@
 	<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="js/casinocoin-latest.js"></script>
 	<script src="js/pouchdb.min.js"></script>
-	<script src="js/casinocoin-libjs-hacks.js"</script>
 	<script src="js/pouchdb.upsert.min.js"></script>
 	<script src="cordova.js"></script>
 	<script src="js/kjua-0.1.1.min.js"></script>
@@ -896,18 +895,15 @@ function unblockInput() {
 	$('body').removeClass('liteloading');
 }
 
+function getUsdExchangeRate() {
+	return $.get("https://api.coinmarketcap.com/v1/ticker/casinocoin/");
+}
+
 function showDonationTab(){
 	showTab('#tabdonate');
-	
-	remote.getOrderbook(
-		"cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk", 
-		{"base": {"currency":"USD", "counterparty": "cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk"}, 
-		"counter": {"currency":"CSC"}},  { limit: 10 }
-	).then(orders => {
-		var exchangerate = 0;
-		for (var i = 0; i < 10; i++) 
-			exchangerate += parseFloat("" + orders.asks[i].properties.makerExchangeRate);
-		exchangerate = 10.0/exchangerate;
+
+	getUsdExchangeRate().then(response => {
+		var exchangerate = response[0].price_usd;
 			
 		$("#btndonate20")[0].innerHTML = "Donate $20 (" + (20.0/exchangerate).toFixed(4) + " CSC)";
 		$("#btndonate10")[0].innerHTML = "Donate $10 (" + (10.0/exchangerate).toFixed(4) + " CSC)";
@@ -916,14 +912,10 @@ function showDonationTab(){
 		$("#btndonate20").data('amount', (20.0/exchangerate).toFixed(4));
 		$("#btndonate10").data('amount', (10.0/exchangerate).toFixed(4));
 		$("#btndonate5").data('amount', (5.0/exchangerate).toFixed(4));
-
-		
-
 	}).catch( function(e) {
 			
 	});
 }
-
 
 function showBackupReminderTab(){
 	showTab('#tabbackupreminder');
@@ -1440,13 +1432,13 @@ function refreshAccounts() {
 				((account) => {
 					var f = 
 					function(res) {
-						var xrpBalance = parseInt(res.Balance) / 1000000.0;
+						var xrpBalance = parseInt(res.Balance) / 100000000.0;
 
 						if (debug) console.log("received account info for: " + account);
 						try {
 							var usdbalance = "";
 							if (exchangerate != -1) {
-								var amount = Math.floor(100.00 * exchangerate * parseFloat("" + xrpBalance))/100.0;
+								var amount = Math.floor(exchangerate * parseFloat("" + xrpBalance))/1000.0;
 								usdbalance = '<br><div class="amount"><small style="opacity:0.7;">(' + amount.toFixed(2) + ' USD)</small></div>';
 							}
 							$("#ra" + account + ">.amount")[0].innerHTML = xrpBalance + " CSC" + usdbalance;
@@ -1483,16 +1475,11 @@ function refreshAccounts() {
 			}
 		});
 	};
-
-	remote.getOrderbook(
-		"cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk",
-		{"base": {"currency":"USD", "counterparty": "cUsXsn22JBe6WsNuoWxBXtMh8WzAQJCiRk"}, 
-		"counter": {"currency":"CSC"}},  { limit: 10 }
-	).then(orders => {
-		var exchangerate = 0;
-		for (var i = 0; i < 10; i++) 
-			exchangerate += parseFloat("" + orders.asks[i].properties.makerExchangeRate);
-		exchangerate = 10.0/exchangerate;
+	getUsdExchangeRate().then(response => {
+		var exchangerate = -1;
+		if (response != undefined && response[0] != undefined && response[0].price_usd != undefined && response[0].price_usd != "") {	
+			exchangerate = response[0].price_usd;
+		}
 		updateaccs(exchangerate);
 	}).catch( function(e) {
 		updateaccs(-1);		
@@ -2248,23 +2235,11 @@ function doPay(nonce) {
 const server = ontestnet ? "ws://wst02.casinocoin.org:7007" : "wss://ws01.casinocoin.org:4443"
 
 var remote = new casinocoin.CasinocoinAPI({
-    server: server // Public casinocoind server hosted by Casinocoin, Inc.
+    server: server 
 });
 
-//
-//var remote;
-//if (ontestnet) {
-//	remote = new ripple.RippleAPI({
-//		server:
-//			"wss://s.altnet.rippletest.net:51233"
-//
-//	});
-//} else {
-//	remote = new ripple.RippleAPI({
-//		server:
-//			"wss://s1.ripple.com"
-//	});
-//}
+const casinocoinKeypairs = casinocoin.CasinocoinKeypairs;
+const casinocoinAddressCodec = casinocoin.CasinocoinAddressCodec;
 
 
 function showSpinner(msg) {
