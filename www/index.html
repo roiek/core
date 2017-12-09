@@ -3823,19 +3823,23 @@ function doGetTransactions(address, marker) {
 	if (debug) console.log("doGetTransactions");
 	//blockInput();
 	remote.getTransactions(address).then(function(x){
-		console.log(x);
+	    blockInput();
 		var root = $('#accdetailstransactiondetails');
 		root.empty();
 		var tx = "";
 		var count = 0;
-		if (x.payments != undefined) {
+		if (x != undefined) {
 			for (var i in x) {
-				tx += '<li class="txrow '+(x[i].specification.source.address == address ? 'txsent' : 'txreceived')+'" data-txhash="'+i+'" ontouchend="window.open(\'https://ripple.com/build/ripple-info-tool/?'+x.payments[i].tx_hash+'#'+x.payments[i].tx_hash+'\', \'_system\');">';
-				var outgoing = (x[i].specification.source.address == address);
+
+			    var deliveredAmount = x[i].outcome.deliveredAmount;
+			    var destinationAddress = x[i].specification.destination.address
+                var outgoing = (x[i].specification.source.address == address);
+
+                tx += '<li class="txrow '+(outgoing ? 'txsent' : 'txreceived')+'" data-txhash="'+i+'" ontouchend="">';
 
 				tx += '<span><i class="fa ' + ( outgoing ? 'fa-paper-plane-o' : 'fa-inbox' ) + '" aria-hidden="true"></i>';
-				tx += ( outgoing ? x[i].specification.destination.amount.value : x[i].specification.source.address ) + '</span>';
-				tx += '<span >' + x[i].outcome.deliveredAmount.value + '</span>';
+				tx +=  destinationAddress + '</span>';
+				tx += '<span >' + deliveredAmount.value + ' ' + deliveredAmount.currency + '</span>';
 
 				tx += '</li>'
 				count++;
