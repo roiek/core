@@ -41,7 +41,7 @@
 	var ontestnet = true;
 	var emergencybackup = false;
 
-	var xrpreserve = 20; // this will be updated by querying the server when it connects, if there's an error getting this data the default will be used
+	var cscreserve = 20; // this will be updated by querying the server when it connects, if there's an error getting this data the default will be used
 
 	var timepaused = 0;
 
@@ -379,7 +379,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
         <div>
                 <input  type="password" id="rsecaccpassword" class="form-control" placeholder="">
         </div><br>
-	<center><div><button  type="button" class="btn btn-primary" id="btnrevealsecret" ontouchend="doRevealRippleSecret($('#rsecaccpassword').val(), $('#accdetailssecretaddress').val());">Reveal CasinoCoin Secret</button></div></center>
+	<center><div><button  type="button" class="btn btn-primary" id="btnrevealsecret" ontouchend="doRevealCasinoCoinSecret($('#rsecaccpassword').val(), $('#accdetailssecretaddress').val());">Reveal CasinoCoin Secret</button></div></center>
 	<center>
 		<label id="lblaccsecret">Account Secret</label>
 		<input type="text" id="accsecret" style="color:blue" oninput="$(this).val($(this).data('content'));" >
@@ -627,7 +627,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
         <div>
                 <input  type="password" id="genaccpassword" class="form-control" placeholder="">
         </div><br>
-	<div style="text-align:center; color:black;">Once imported your address will need to be activated by sending <span id="minxrp2"></span> XRP to it.</div>
+	<div style="text-align:center; color:black;">Once imported your address will need to be activated by sending <span id="mincsc2"></span> CSC to it.</div>
 	<br>
 	<center><div><button  type="button" class="btn btn-primary" ontouchend="doImportGeneratedAccount($('#genaccpassword').val(), $('#newaccnick').val());">Import this Address</button></div></center>
 </div>
@@ -699,7 +699,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	</span>
 	</div>
 	<br/>
-	<div><center style="color:black;">The CasinoCoin network requires a minimum <span id="minxrp"></span> CSC balance at all times and charges fees based on congestion even for failed transactions.</center></div>
+	<div><center style="color:black;">The CasinoCoin network requires a minimum <span id="mincsc"></span> CSC balance at all times and charges fees based on congestion even for failed transactions.</center></div>
 
 </div>
 
@@ -1369,8 +1369,8 @@ function doDeleteAccount(passphrase, address, toggle) {
 	
 }
 
-function doRevealRippleSecret(passphrase, address) {
-	if (debug) console.log("doRevealRippleSecret");
+function doRevealCasinoCoinSecret(passphrase, address) {
+	if (debug) console.log("doRevealCasinoCoinSecret");
 	blockInput();
         validatePassphrase(passphrase, false,
                 function() {
@@ -1509,19 +1509,19 @@ function refreshAccounts() {
 				((account) => {
 					var f = 
 					function(res) {
-						var xrpBalance = parseInt(res.Balance) / 100000000.0;
+						var cscBalance = parseInt(res.Balance) / 100000000.0;
 
 						if (debug) console.log("received account info for: " + account);
 						try {
 							var usdbalance = "";
 							if (exchangerate != -1) {
-								var amount = Math.floor(exchangerate * parseFloat("" + xrpBalance))/1000.0;
+								var amount = Math.floor(exchangerate * parseFloat("" + cscBalance))/1000.0;
 								usdbalance = '<br><div class="amount"><small style="opacity:0.7;">(' + amount.toFixed(2) + ' USD)</small></div>';
 							}
-							$("#ra" + account + ">.amount")[0].innerHTML = xrpBalance + " CSC" + usdbalance;
+							$("#ra" + account + ">.amount")[0].innerHTML = cscBalance + " CSC" + usdbalance;
 				
 						} catch(e) {handle_error(e);}
-						accountbalances[account] = parseFloat(xrpBalance);
+						accountbalances[account] = parseFloat(cscBalance);
 
 						var balcount = Object.keys(accountbalances).length;
 						if (balcount > 0 && activeaccount == "") {
@@ -2084,7 +2084,7 @@ function doConfirmPay(passphrase) {
 
 			checkConnection(
 				function(){
-					sendXRP(passphrase, confirmpay.payfrom, parseFloat(confirmpay.amount), confirmpay.payto, 0, confirmpay.dest, confirmpay.invid, 
+					sendCSC(passphrase, confirmpay.payfrom, parseFloat(confirmpay.amount), confirmpay.payto, 0, confirmpay.dest, confirmpay.invid,
 						function(wasqueued){
 
 							if (confirmpay.payto == 'rToastMYRQh8boeo5Ys1CnPySmt3c9x3Y') {
@@ -2255,7 +2255,7 @@ function doPay(nonce) {
 	}
 
 	if (payto == payfrom) {
-		navigator.notification.alert("A Ripple address cannot pay XRP from itself to itself.",
+		navigator.notification.alert("A CasinoCoin address cannot pay CSC from itself to itself.",
 			function(){
 				$("#toaddress").focus();
 				unblockInput();
@@ -2304,8 +2304,8 @@ function doPay(nonce) {
 
 	if (payfrom in accountbalances) {
 		var balance = accountbalances[payfrom] - amount;
-		if (balance < xrpreserve) {
-			navigator.notification.confirm("You must leave " + xrpreserve + " CSC reserve in the account you are sending from. This is a CasinoCoin network requirement. In some circumstances this message may appear in error if you believe that to be the case you can opt to attempt the transaction however this will attract a CasinoCoin network fee." ,
+		if (balance < cscreserve) {
+			navigator.notification.confirm("You must leave " + cscreserve + " CSC reserve in the account you are sending from. This is a CasinoCoin network requirement. In some circumstances this message may appear in error if you believe that to be the case you can opt to attempt the transaction however this will attract a CasinoCoin network fee." ,
 				function(b){
 					if (debug) console.log("button selected: " + b);
 					if (b == 1) {
@@ -2325,7 +2325,7 @@ function doPay(nonce) {
 		}
 	} else {
 
-		navigator.notification.confirm("Toast Wallet was unable to check your account balance at this time. Please confirm that you have left " + xrpreserve + " CSC reserve in your account before continuing.",
+		navigator.notification.confirm("Toast Wallet was unable to check your account balance at this time. Please confirm that you have left " + cscreserve + " CSC reserve in your account before continuing.",
 			function(b){
 				if (b == 1) {
 					nextscreen();
@@ -2751,9 +2751,9 @@ function normalboot () {
 		doGenerateBackup();
 	} else {
 		validatePin("",
-			function() {   connectToRipple( doShowLogin ); },
-			function() {   connectToRipple( doShowLogin ); },
-			function() {   connectToRipple( function() {showTab("#tablicense");}); }
+			function() {   connectToCasinoCoin( doShowLogin ); },
+			function() {   connectToCasinoCoin( doShowLogin ); },
+			function() {   connectToCasinoCoin( function() {showTab("#tablicense");}); }
 		);
 	}
 }
@@ -3133,7 +3133,7 @@ function importAddress(secret, address, nickname, passphrase, successfunc, failu
 
 			recoverykey = "";
 
-			// finally lock the true ripple secret into two boxes: rpsecret and ppsecret
+			// finally lock the true casinoCoin secret into two boxes: rpsecret and ppsecret
 			var ppnonce = sodium.randombytes_buf(sodium.crypto_box_NONCEBYTES);
 			var rpnonce = sodium.randombytes_buf(sodium.crypto_box_NONCEBYTES);
 
@@ -3705,17 +3705,17 @@ function checkConnection(connectedfunc) {
 	}
 }
 
-function connectToRipple(funcsuccess) {
-	if (debug) console.log("connectToRipple");
+function connectToCasinoCoin(funcsuccess) {
+	if (debug) console.log("connectToCasinoCoin");
 	remote.connect().then(function() {
 			if (debug) console.log("connect success");
 
 			// 
 			remote.getServerInfo().then(info => {
-				if (info != undefined && info['validatedLedger'] != undefined && info['validatedLedger']['reserveBaseXRP'] != undefined) 
-					xrpreserve = parseInt('' +   info['validatedLedger']['reserveBaseXRP']);
-					$("#minxrp")[0].innerHTML = "" + xrpreserve;
-					$("#minxrp2")[0].innerHTML = "" + xrpreserve;
+				if (info != undefined && info['validatedLedger'] != undefined && info['validatedLedger']['reserveBaseCSC'] != undefined)
+					cscreserve = parseInt('' +   info['validatedLedger']['reserveBaseCSC']);
+					$("#mincsc")[0].innerHTML = "" + cscreserve;
+					$("#mincsc2")[0].innerHTML = "" + cscreserve;
 			}).catch(e => {
 				console.log("csc reserve request error: " + e);
 			});
@@ -3723,16 +3723,16 @@ function connectToRipple(funcsuccess) {
 			funcsuccess();
 		}).catch(function(e) {
 			if (debug) console.log("connect error: " + e);
-			connectToRipple(funcsuccess);
+			connectToCasinoCoin(funcsuccess);
 		});
 }
 
-/* This function actually executes the XRP send on the Ripple network. You must ensure the passphrase is valid
+/* This function actually executes the CSC send on the CasinoCoin network. You must ensure the passphrase is valid
 ** before calling.
 */
-function sendXRP(passphrase, fromacc, xrpAmount, destination, sourceTag, destTag, invoiceID, successfunc, failurefunc) {
+function sendCSC(passphrase, fromacc, cscAmount, destination, sourceTag, destTag, invoiceID, successfunc, failurefunc) {
 	
-	if (debug) console.log("sendXRP - " + xrpAmount);
+	if (debug) console.log("sendCSC - " + cscAmount);
 
 	
 	blockInput();
@@ -3746,7 +3746,7 @@ function sendXRP(passphrase, fromacc, xrpAmount, destination, sourceTag, destTag
 			  source: {
 			    address: fromacc,
 			    maxAmount: {
-			      value: xrpAmount + "",
+			      value: cscAmount + "",
 			      currency: 'CSC',
 			    },
 		      	    tag: parseInt(sourceTag + "")
@@ -3754,7 +3754,7 @@ function sendXRP(passphrase, fromacc, xrpAmount, destination, sourceTag, destTag
 			  destination: {
 			    address: destination,
 			    amount: {
-			      value: xrpAmount + "",
+			      value: cscAmount + "",
 			      currency: 'CSC',
 			    },
 			    tag: parseInt(destTag + "")
