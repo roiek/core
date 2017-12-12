@@ -1,17 +1,16 @@
 {
-  "name": "ToastWallet",
-  "version": "2.1.34",
-  "description": "Toast Wallet is a Ripple wallet for Android and iOS.",
+  "name": "CasinoCoin Mobile",
+  "version": "1.0.0",
+  "description": "CasinoCoin Mobile is a CasinoCoin wallet for Android and iOS.",
   "main": "electron-start.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/ToastWallet/core",
+  "repository": "https://github.com/casino-coin/casino-coin-mobile",
   "keywords": [
-    "XRP",
-    "Ripple",
-    "Toast",
-    "Wallet"
+    "CSC",
+    "CasinoCoin",
+    "CasinoCoin Mobile"
   ],
   "author": "StarStone Limited",
   "license": "GPL 2.0",
@@ -20,7 +19,7 @@
     "electron-builder": "^19.19.1"
   },
   "build": {
-    "appId": "com.toastwallet.core",
+    "appId": "com.casinocoin.core",
     "compression": "maximum",
     "win": {
       "target": "appx",

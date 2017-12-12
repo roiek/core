@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.toastwallet.core" version="2.1.34" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Toast Wallet</name>
+<widget id="com.casinocoin.core" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>CasinoCoin Mobile</name>
     <description>
-	Toast Wallet is a Ripple wallet for Android and iOS.
+	CasinoCoin Mobile is a CasinoCoin wallet for Android and iOS.
     </description>
-    <author email="support@toastwallet.com" href="https://toastwallet.com">
-        Toast Wallet
+    <author email="support@casinocoin.org" href="https://casinocoin.org">
+        CasinoCoin Mobile
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="false" />
