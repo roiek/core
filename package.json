@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/casino-coin/casino-coin-mobile",
+  "repository": "https://github.com/casinocoin/casinocoin-mobile",
   "keywords": [
     "CSC",
     "CasinoCoin",
