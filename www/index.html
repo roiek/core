@@ -23,7 +23,7 @@
 	
 		window.onerror = function(message, url, lineNumber) {  
 			console.log("Error: " + message + ", url: " + url + " line: " + lineNumber);
-			navigator.notification.alert("We're sorry: An unexpected error has occured with Toast Wallet. Please report the below to support@toastwallet.com along with what you were trying to do at the time the error occured. If you haven't already it would be prudent to make a backup of your wallet. " + error + " " + url + " " + lineNumber, 
+			navigator.notification.alert("We're sorry: An unexpected error has occured with CasinoCoin Mobile. Please report the below to support@casinocoin.org along with what you were trying to do at the time the error occured. If you haven't already it would be prudent to make a backup of your wallet. " + error + " " + url + " " + lineNumber,
 				function(){
 					unblockInput();
 				}, 
@@ -293,7 +293,7 @@
 
 <div id="tabbackup2" class="screentab" data-primarytab="false" hasback="true" data-title="Encrypted Backup" style="display: none;">
     <h3 style="color:black; text-align:center;">The data below is your encrypted wallet backup</h3>
-    <p style="color:black;">You should make a new backup whenever you add a new account to your wallet, change your passphrase or change your pin. Toast Wallet will prompt you when a new backup is required.</p>
+    <p style="color:black;">You should make a new backup whenever you add a new account to your wallet, change your passphrase or change your pin. CasinoCoin Mobile will prompt you when a new backup is required.</p>
 	<center>
 
 	<div>
@@ -305,7 +305,7 @@
 </div>
 
 <div id="tabrestore2" class="screentab" data-primarytab="false" data-hasback="true" data-title="Restore an Existing Wallet" style="padding-bottom: 0em;" data-dark="true" data-noright="true">  
-    <p style="text-align:justify;">If you have a backup code you exported from another copy of Toast Wallet you can import it here. Doing so will create a copy of that wallet on this device.</p>
+    <p style="text-align:justify;">If you have a backup code you exported from another copy of CasinoCoin Mobile you can import it here. Doing so will create a copy of that wallet on this device.</p>
     <div>
     <label style="color:white;">Backup code</label>
     <input type="text" class="form-control" id="restorebackup2" style="color:black">
@@ -348,7 +348,7 @@
     ">only way for you to regain access to your CSC.</u>&nbsp;
     Never share your recovery phrase with anyone.</p></div>
 
-<div><p style="color:black; text-align:justify; font-weight:bold;">This recovery phrase is <u style="color:red">useless without a backup</u>. Please make a backup using the settings menu <u style="color:red">after</u> you finish adding or generating <u style="color:red">all</u> of your addresses. Toast Wallet backups are <u style="color:red">data backups</u>, this means you will <u style="color:red">only have access to the addresses you had in your wallet at the time you made the backup!</u></p></div>
+<div><p style="color:black; text-align:justify; font-weight:bold;">This recovery phrase is <u style="color:red">useless without a backup</u>. Please make a backup using the settings menu <u style="color:red">after</u> you finish adding or generating <u style="color:red">all</u> of your addresses. CasinoCoin Mobile backups are <u style="color:red">data backups</u>, this means you will <u style="color:red">only have access to the addresses you had in your wallet at the time you made the backup!</u></p></div>
 
 <div id="showrecoveryphrase">
 </div><br>
@@ -485,7 +485,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 </div>
 
 
-<div id="tablogin" class="screentab" data-primarytab="true" data-title="Toast Wallet" data-dark="true" data-recovery="true" style="display: none;">
+<div id="tablogin" class="screentab" data-primarytab="true" data-title="CasinoCoin Mobile" data-dark="true" data-recovery="true" style="display: none;">
     
 	<center>
 	<div class="pinpad" style="">
@@ -709,8 +709,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<div><center><button  type="button" class="btn btn-primary" id="btnsettingschangepassphrase" ontouchend="showTab('#tabchangepassphrase');">Change Passphrase</button></center></div>
 	<div><center><button  type="button" class="btn btn-primary" ontouchend="doGenerateBackup();">Backup Wallet</button></center></div>
 	<div><center><button  type="button" class="btn btn-primary" id="btnsettingsresortbackup" ontouchend="showTab('#tabrestore');">Restore Wallet</button></center></div>
-	<div><center><button  type="button" class="btn btn-primary" id="btnfaq" ontouchend="window.open('https://toastwallet.com/faq', '_system');">FAQ / Help</button></center></div>
-	<div><center><button  type="button" class="btn btn-primary" ontouchend="showDonationTab();">Support Toast Wallet</button></center></div>
+	<div><center><button  type="button" class="btn btn-primary" id="btnfaq" ontouchend="window.open('https://casinocoin.org/', '_system');">FAQ / Help</button></center></div>
 	<div><center style="color:black;" data-version="version">Version: 2.1.34</div>
 	<div><center style="color:black;" class="deviceversion"></center></div>
 </div>
@@ -724,7 +723,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 </div>
 
 <div id="tabcorruptionprompt" class="screentab" data-primarytab="true" data-hasback="false"  data-noright="true" data-title="Recover Corrupt Data" style="display: none;">
-    <p style="color:red; text-align:justify;">Toast Wallet may be able to recover some of your data, please enter your passphrase and recovery phrase <u>if you know them</u>. If you only know one only then enter the one you know. If you don't know either then don't enter either. <b>Warning entering these incorrectly may result in further corruption.</b></p>
+    <p style="color:red; text-align:justify;">CasinoCoin Mobile may be able to recover some of your data, please enter your passphrase and recovery phrase <u>if you know them</u>. If you only know one only then enter the one you know. If you don't know either then don't enter either. <b>Warning entering these incorrectly may result in further corruption.</b></p>
     <p style="color:black; text-align:justify;">A valid alternative, if you have a backup, is simply to reinstall the app and restore your backup from the settings menu.</p>
     <div>
         <label >Passphrase</label><input  type="password" id="corruptionpp" class="form-control" placeholder="">
@@ -754,33 +753,12 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 </center>
     <p></p></center></div>
 
-
-
-<div id="tabdonate" class="screentab" data-primarytab="true" data-hasback="false" data-dark="true" data-noright="true" data-title="Support Toast Wallet" style="padding-bottom: 0em;">
-   <center>
-    <h1>Toast Wallet</h1>
-
-	<center>
-<p style="text-align:center;">We rely on your contributions to keep Toast Wallet free and running smoothly.</p>
-<p style="text-align:center;">Please consider supporting us:</p><br>
-	<br>
-	<div>
-		<button class="btn btn-success" type="button" id="btndonate20" ontouchend="$('#toaddress').val('rToastMYRQh8boeo5Ys1CnPySmt3c9x3Y'); $('#payamount').val($('#btndonate20').data('amount')); showTab('#tabpayments', false);" style="min-width: 20em;">Donate $20</button><br><br>
-<button class="btn btn-info" type="button" id="btndonate10" ontouchend="$('#toaddress').val('rToastMYRQh8boeo5Ys1CnPySmt3c9x3Y'); $('#payamount').val($('#btndonate10').data('amount')); showTab('#tabpayments', false);" style="min-width: 20em;">Donate $10</button><br><br>
-<button class="btn btn-warning" type="button" id="btndonate5" ontouchend="$('#toaddress').val('rToastMYRQh8boeo5Ys1CnPySmt3c9x3Y'); $('#payamount').val($('#btndonate5').data('amount')); showTab('#tabpayments', false);" style="min-width: 20em;">Donate $5</button><br><br>
-<button class="btn btn-danger" type="button" id="btndonate0" ontouchend="showTab('#tabaccounts');" style="min-width: 20em;">Not at this time</button><br>
-	</div>
-	<br>
-	
-</center>
-    <p></p></center></div>
-
 <div id="tablicense" class="screentab" data-primarytab="true" data-hasback="false"  data-dark="true" data-noright="true" data-title="License Agreement" style="display: none;">
    <center>
-    <h1>Toast Wallet</h1>
+    <h1>CasinoCoin Mobile</h1>
 
 	<p>This software is licensed under the GPL 2.0 <br><b>without any warranty. Use at own risk.</b></p>
-<p><a href="https://github.com/ToastWallet/core" target="_blank" style="color:lime; ">Tap here to view full source code on GitHub</a></p></center> 
+<p><a href="https://github.com/casinocoin/casinocoin-mobile" target="_blank" style="color:lime; ">Tap here to view full source code on GitHub</a></p></center>
 <blockquote style="font-size:0.8em; text-align:justify;">GNU GENERAL PUBLIC LICENSE
 
 Version 2, June 1991
@@ -910,24 +888,6 @@ function getUsdExchangeRate() {
 	return $.get("https://api.coinmarketcap.com/v1/ticker/casinocoin/");
 }
 
-function showDonationTab(){
-	showTab('#tabdonate');
-
-	getUsdExchangeRate().then(response => {
-		var exchangerate = response[0].price_usd;
-			
-		$("#btndonate20")[0].innerHTML = "Donate $20 (" + (20.0/exchangerate).toFixed(4) + " CSC)";
-		$("#btndonate10")[0].innerHTML = "Donate $10 (" + (10.0/exchangerate).toFixed(4) + " CSC)";
-		$("#btndonate5")[0].innerHTML = "Donate $5 (" + (5.0/exchangerate).toFixed(4) + " CSC)";
-
-		$("#btndonate20").data('amount', (20.0/exchangerate).toFixed(4));
-		$("#btndonate10").data('amount', (10.0/exchangerate).toFixed(4));
-		$("#btndonate5").data('amount', (5.0/exchangerate).toFixed(4));
-	}).catch( function(e) {
-			
-	});
-}
-
 function showBackupReminderTab(){
 	showTab('#tabbackupreminder');
 }
@@ -1053,7 +1013,7 @@ function setAndShowNewRecoveryPhrase(passphrase) {
 			unblockInput();
 		}, 
 		function() {
-			navigator.notification.alert('Unable to setup your recovery phrase, possibly due to a device error or out of storage. Toast Wallet cannot proceed and will now restart.', 
+			navigator.notification.alert('Unable to setup your recovery phrase, possibly due to a device error or out of storage. CasinoCoin Mobile cannot proceed and will now restart.',
 			function(){ 
 				restart(); 
 				unblockInput(); 
@@ -1432,20 +1392,6 @@ function getLastBackupReminder(callback) {
 }
 
 
-
-function getLastDonation(callback) {
-	var f	= function(donation) { try {
-		if (donation.data == undefined) {
-			donation = {};
-		} else {
-			donation = JSON.parse(donation.data);
-		}
-		callback(donation);
-	} catch(e) { handle_error(e); } }
-	db.get("lastdonated").then(f).catch(f);
-}
-
-
 function getAccounts(callback) {
 	var f	= function(secrets) { try {
 		if (secrets.data == undefined) {
@@ -1782,44 +1728,13 @@ function showTab(tab, dontClearText) {
 		$('#accdetailsaddressdetails').show();
 	} 
 	if (tab == '#tabpayments') {
-		var to = $('#toaddress').val();
-		if (to == 'rToastMYRQh8boeo5Ys1CnPySmt3c9x3Y') {
-			$('#toaddress').css('background-color', 'rgba(92, 184, 104, 0.63)');
-			$('#toaddress').css('color', 'white');
-			$('#toaddress').attr('readonly', 'readonly');
-			$('#btnqrpay').attr('ontouchend', null);
-		} else {
-			$('#toaddress').css('background-color', '');
-			$('#toaddress').css('color', '');
-			$('#toaddress').attr('readonly', null);
-			$('#btnqrpay').attr('ontouchend', 'scanQR("#toaddress", "#desttag", "#payamount", decodePaymentURI);');
-		}
+        $('#toaddress').css('background-color', '');
+        $('#toaddress').css('color', '');
+        $('#toaddress').attr('readonly', null);
+        $('#btnqrpay').attr('ontouchend', 'scanQR("#toaddress", "#desttag", "#payamount", decodePaymentURI);');
 	}
 
 	if (tab == '#tabaccounts') {
-
-
-		var donorreminder = function() {
-			getLastDonation(function(donation) {
-				if ('lastdonation' in donation && Math.floor(new Date().getTime()/1000) - parseInt(donation['lastdonation']) < 15552000 /* 180 days */) {
-					// do nothing
-					return;
-				}
-
-				if (!('lastreminder' in donation) ||  Math.floor(new Date().getTime()/1000) - parseInt(donation['lastreminder']) > 604800 /* 1 week */ ) {
-					// reminder
-					
-					donation['lastreminder'] = "" + Math.floor(new Date().getTime()/1000);
-					db.upsert("lastdonated",
-						function(doc) {
-						return { data: JSON.stringify(donation)	}; 
-					}).then( function() {
-						showDonationTab();
-					})
-
-				}
-			});
-		};
 
 		getAccounts(function(acc) {
 			var acccount = 0;
@@ -2086,35 +2001,12 @@ function doConfirmPay(passphrase) {
 				function(){
 					sendCSC(passphrase, confirmpay.payfrom, parseFloat(confirmpay.amount), confirmpay.payto, 0, confirmpay.dest, confirmpay.invid,
 						function(wasqueued){
-
-							if (confirmpay.payto == 'rToastMYRQh8boeo5Ys1CnPySmt3c9x3Y') {
-
-								getLastDonation(function(donation) {
-									donation['lastdonation'] = "" + Math.floor(new Date().getTime()/1000);
-									donation['lastreminder'] = "" + Math.floor(new Date().getTime()/1000);
-									db.upsert("lastdonated",
-										function(doc) {
-										return { data: JSON.stringify(donation)	}; 
-									}).then( function() {
-										navigator.notification.alert("Thank you for your donation! Your contribution helps us keep Toast Wallet running!", 
-											function(){
-												clearPaymentScreen();
-												showTab("#tabaccounts");
-												unblockInput();
-											}, 
-											"Success", 
-											"OK"
-										); 
-									});
-								});
-							} else {
 								navigator.notification.alert("Your payment was successfully " + ( wasqueued ? "queued, and will be sent shortly." : "sent." ),
 									function(){
 										clearPaymentScreen();
 										showTab("#tabaccounts");
 										unblockInput();
-									}, "Success", "OK"); 
-								}
+									}, "Success", "OK");
 						}, 
 						function() {
 							navigator.notification.alert("An error occured when trying to make your payment. Most likely lack of funds in the account you are sending from. (The network requires a minimum account balance.) This error can also be caused by an invalid or not activated destination address or if the CasinoCoin network is overloaded.",
@@ -2325,7 +2217,7 @@ function doPay(nonce) {
 		}
 	} else {
 
-		navigator.notification.confirm("Toast Wallet was unable to check your account balance at this time. Please confirm that you have left " + cscreserve + " CSC reserve in your account before continuing.",
+		navigator.notification.confirm("CasinoCoin Mobile was unable to check your account balance at this time. Please confirm that you have left " + cscreserve + " CSC reserve in your account before continuing.",
 			function(b){
 				if (b == 1) {
 					nextscreen();
@@ -2957,7 +2849,7 @@ bindEvents: function() {
 	    // function, we must explicitly call 'app.receivedEvent(...);'
 onDeviceReady: function() {
 			if (debug) console.log("onDeviceReady:1");
-		       	db = new PouchDB('toastwallet');
+		       	db = new PouchDB('casinocoinwallet');
 			if (debug) console.log("onDeviceReady:2");
 			setTimeout(afterCordovaLoad, 0);
 			if (debug) console.log("onDeviceReady:3");
@@ -2965,7 +2857,7 @@ onDeviceReady: function() {
 
 
 			if (device.platform == 'iOS' && parseFloat("0" + device.version ) < 11) {
-				navigator.notification.alert("Toast Wallet has some compatibility issues with iOS versions below 11.0. Toast Wallet will attempt to generate a backup for you to copy now. If you want to continue using Toast Wallet on this device you need to update it to iOS 11 or newer.", 
+				navigator.notification.alert("CasinoCoin Mobile has some compatibility issues with iOS versions below 11.0. CasinoCoin Mobile will attempt to generate a backup for you to copy now. If you want to continue using CasinoCoin Mobile on this device you need to update it to iOS 11 or newer.",
 					()=>{
 						hideSpinner();
 						doGenerateBackup();
