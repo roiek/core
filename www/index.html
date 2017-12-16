@@ -312,7 +312,7 @@
     <br>
     <p style="color:black;">
     	<span class="toggleswitch"><i class="fa fa-toggle-off" aria-hidden="true"></i></span>
-	I understand this will <b style="color:red;">DESTROY</b> my current wallet.
+	I understand this will <b style="color:#000000;">DESTROY</b> my current wallet.
     </p>
     <br>
     <div align="center">
@@ -321,15 +321,12 @@
     <button  class="btn btn-danger" ontouchend="doRestoreBackup();">Restore Backup</button></div>
 </div>
 <div id="tabshowrecovery" class="screentab" data-title="Your Recovery Phrase" data-primarytab="true" data-hasback="false" data-noright="true" style="display: none;">
-    <h1 style="color:red; text-align:center;">IMPORTANT!!!</h1>
-<div><p style="color:black; font-weight:bold; text-align:justify;">Your six(6) word recovery phrase appears below. <u style="color:red;">Write it down on paper</u> and store it in a safe location. If you ever forget your passphrase this code will be the <u style="
-
-    color:red;
-
-    ">only way for you to regain access to your CSC.</u>&nbsp;
+    <h1 style="color:#000000; text-align:center;">IMPORTANT!!!</h1>
+<div><p style="color:black; font-weight:bold; text-align:justify;">Your six(6) word recovery phrase appears below. <b style="color:#000000;">Write it down on paper</b> and store it in a safe location. If you ever forget your passphrase this code will be the
+    <b style="color:#000000;">only way for you to regain access to your CSC.</b>&nbsp;
     Never share your recovery phrase with anyone.</p></div>
 
-<div><p style="color:black; text-align:justify; font-weight:bold;">This recovery phrase is <u style="color:red">useless without a backup</u>. Please make a backup using the settings menu <u style="color:red">after</u> you finish adding or generating <u style="color:red">all</u> of your addresses. CasinoCoin Mobile backups are <u style="color:red">data backups</u>, this means you will <u style="color:red">only have access to the addresses you had in your wallet at the time you made the backup!</u></p></div>
+<div><p style="color:black; text-align:justify; font-weight:bold;">This recovery phrase is <b style="color:#000000">useless without a backup</b>. Please make a backup using the settings menu <b style="color:#000000">after</b> you finish adding or generating <b style="color:#000000">all</b> of your addresses. CasinoCoin Mobile backups are <b style="color:red">data backups</b>, this means you will <b style="color:red">only have access to the addresses you had in your wallet at the time you made the backup!</b></p></div>
 
 <div id="showrecoveryphrase">
 </div><br>
@@ -998,72 +995,6 @@ function doResetPassphrase(pp1, pp2, oldpp, successfunc, firstrun) {
 		}, firstrun
 	);
 }
-
-function decodePaymentURI(uri, addrfield, dtagfield, amountfield, after) {
-	// remove preceeding garbage
-	uri = uri.replace(/^(?:[^?&]*send)?(.+)$/mg, "$1");
-
-	var paymentsRegex = /(?:[?&]?([a-z]+)=|^)([^&?\r\n]*)/mg;
-	var match = paymentsRegex.exec(uri);
-	while (match != null) {
-		var key = ( match[1] == undefined ? "" : (match[1]+"").toLowerCase() );
-		var val = ( match[2] == undefined ? "" : match[2] );
-		if ((key == "" || key == "to") && addrfield != undefined) {
-			$(addrfield).val(val);
-		} else if (key == "dt" && dtagfield != undefined) {
-			$(dtagfield).val(val);
-		} else if ((key == "amount" || key == "amt") && amountfield != undefined) {
-			$(amountfield).val(val);
-		}
-		match = paymentsRegex.exec(uri);
-	}
-
-	if (after != undefined)	return after();
-
-	return;
-}
-
-function decodeSecretAddressURI(uri, secretfield, addrfield, defaultfield, after) {
-
-	uri = uri.replace(/^([a-z\/:.]+\/)?(.+)$/mg, "$2");
-
-	if (/^[^?&=]+$/m.test(uri) && defaultfield != undefined) {
-		// if this is a simple regex with no uri stuff then we'll just import it directly into the
-		// field next to the QR button
-		$(defaultfield).val(uri);
-	} else {
-
-		var addressRegex = /(?:[?&]?([a-z]+)=|^)([^&?\r\n]*)/mg;
-		var match = addressRegex.exec(uri);
-		var matchcount = 0;
-		while (match != null) {
-			matchcount++;
-			var key = ( match[1] == undefined ? "" : (match[1]+"").toLowerCase() );
-			var val = ( match[2] == undefined ? "" : match[2] );
-			var first = val.charAt(0) ;
-			if (first == 's' && secretfield != undefined) {
-				$(secretfield).val(val);
-			} else if ((first == 'r' || first == 'n') && addrfield != undefined) {
-				$(addrfield).val(val);
-			}
-			match = addressRegex.exec(uri);
-		}
-
-	}
-
-	if (after != undefined)	return after();
-
-	return;
-}
-
-function existingAddrSecretSwap() {
-	if ($("#txtsecret").val()[0] == 'r' && $("#vanityaddr").val()[0] == 's') {
-		var x = $("#txtsecret").val();
-		$("#txtsecret").val($("#vanityaddr").val());
-		$("#vanityaddr").val(x);
-	}
-}
-
 
 var scanner;
 var timeatlastQR = 0;
@@ -2375,16 +2306,6 @@ function doCopy(id) {
 	));
 
 }
-
-function dbgdumpdata() {
-	var f = function(x) {console.log(x);}
-	
-	db.get("pindata").then(function(x){ console.log("pindata: " + x.data);});
-	db.get("ppdata").then(function(x){ console.log("ppdata: " + x.data);});
-	db.get("rpdata").then(function(x){ console.log("rpdata: " + x.data);});
-	db.get("accounts").then(function(x){ console.log("accounts: " + x.data);});
-}
-
 
 /* Generate a checksum and prepend it to data, returns as hex */
 function tohex_chksum(data) {
