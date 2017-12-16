@@ -115,10 +115,10 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <gap:config-file overwrite="true" parent="NSCameraUsageDescription" platform="ios">
-            <string>The camera is used to scan QR-codes of Ripple addresses.</string>
+            <string>The camera is used to scan QR-codes of CasinoCoin addresses.</string>
         </gap:config-file>
         <gap:config-file overwrite="true" parent="NSPhotoLibraryUsageDescription" platform="ios">
-            <string>The photo library is used to scan QR-codes of Ripple addresses.</string>
+            <string>The photo library is used to scan QR-codes of CasinoCoin addresses.</string>
         </gap:config-file>
     </platform>
     <plugin name="phonegap-plugin-barcodescanner" spec="~6.0.6" />

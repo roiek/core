@@ -122,7 +122,7 @@ textarea {
 }
 
 #tabpaymentconfirm div[id^="confirm"] {
-    color: blue;
+    color: #901119;
     font-size: 1em;
     overflow-wrap: break-word;
     display: block;
@@ -139,13 +139,13 @@ textarea {
 }
 
 .accountdetailsselector > *:not(.accdetailsinnertabselected) {
-    background: rgb(0, 81, 185) !important;
+    background: #901119 !important;
     color: white !important;
 }
 
 .accountdetailsselector > .accdetailsinnertabselected {
     background: white !important;
-    color: rgb(0, 81, 185) !important;
+    color: #901119 !important;
 }
 
 .accountdetailsselector > li {
@@ -200,7 +200,7 @@ textarea {
 
 
 #showrecoveryphrase {
-    color: blue;
+    color: #901119;
     font-size: 2em;
     text-align: center;
     font-weight: bold;
@@ -238,7 +238,7 @@ textarea {
     animation: fa-spin 2s infinite linear;
     z-index: 101;
     content: "\f021";
-    color: #307ee0;
+    color: #901119;
     font: normal normal normal 4em/1 FontAwesome;
     -webkit-animation: fa-spin 2s infinite linear;
     text-rendering: auto;
@@ -259,7 +259,7 @@ textarea {
     z-index: 102;
     background: white;
     content: "\f110";
-    color: #307ee0;
+    color: #901119;
     font: normal normal normal 4em/1 FontAwesome;
     -webkit-animation: fa-spin 2s infinite linear;
     text-rendering: auto;
@@ -401,7 +401,7 @@ div.input-group>span.input-group-btn>button {
     bottom: 0;
     width: 100vw;
     left: 0;
-    background: linear-gradient(45deg, #1959ab, #317fe2);
+    background: linear-gradient(45deg, #a0131c, #cd1824);
     list-style: none;
     margin: 0;
     text-align: center;
@@ -416,7 +416,7 @@ div.input-group>span.input-group-btn>button {
     top: 0;
     left: 0;
     width: 100vw;
-    background: linear-gradient(45deg, #1959ab, #317fe2);
+    background: linear-gradient(45deg, #a0131c, #cd1824);
     margin: 0;
     list-style: none;
     z-index: 90;
@@ -501,7 +501,7 @@ ul.iosheader > li > * {
 
 
 .logobackground {
-    background: url('images/toastwallet4finalgrd2new.png') no-repeat;
+    background: url('images/toastwallet4.png') no-repeat;
     background-size: 100%;
     height: 100vh;
 }
@@ -509,11 +509,11 @@ ul.iosheader > li > * {
 
 
 .darkbackground {
-    background: linear-gradient(45deg, #1959ab, #317fe2),  #1959ab;
+    background: linear-gradient(45deg, #901119, #e7323e),  #901119;
     background-repeat: no-repeat;
 }
 .darkbackground2 {
-    background: linear-gradient(45deg, #19ab4c, #317fe2), #1959ab;
+    background: linear-gradient(45deg, #902826, #cf4c4a),  #902826;;
     background-repeat: no-repeat;
 }
 
@@ -541,7 +541,7 @@ ul.iosheader > li > * {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url(../images/background.png);
+    background: url(../images/background2.png);
     opacity: 0.1;
     background-size: 100%;
     background-repeat: no-repeat;

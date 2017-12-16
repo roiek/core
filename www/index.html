@@ -6,6 +6,7 @@
 	<!--meta name="msapplication-tap-highlight" content="no" /-->
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="css/font-awesome.css">
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -20,14 +21,14 @@
 	<script src="js/clipboard.min.js"></script>
 	<script src="js/instascan.min.js"></script>
 	<script>if (window.module) module = window.module;
-	
-		window.onerror = function(message, url, lineNumber) {  
+
+		window.onerror = function(message, url, lineNumber) {
 			console.log("Error: " + message + ", url: " + url + " line: " + lineNumber);
 			navigator.notification.alert("We're sorry: An unexpected error has occured with CasinoCoin Mobile. Please report the below to support@casinocoin.org along with what you were trying to do at the time the error occured. If you haven't already it would be prudent to make a backup of your wallet. " + error + " " + url + " " + lineNumber,
 				function(){
 					unblockInput();
-				}, 
-				"Unexpected Error", 
+				},
+				"Unexpected Error",
 				"OK"
 			);
 		}
@@ -73,9 +74,9 @@
 
 		if (window.cordova.plugins.Keyboard != undefined) {
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-			cordova.plugins.Keyboard.disableScroll(true);	
+			cordova.plugins.Keyboard.disableScroll(true);
 
-			window.addEventListener('native.keyboardshow', 
+			window.addEventListener('native.keyboardshow',
 				function(e) {
 					if (debug) console.log("nativeKeyboardShow()");
 					//blockInput(true);
@@ -105,11 +106,11 @@
 			);
 
 
-			window.addEventListener('native.keyboardhide', 
+			window.addEventListener('native.keyboardhide',
 				function(e) {
 					if (debug) console.log("nativeKeyboardHide()");
 					$('.screentab').css('padding-bottom', screentabpaddingbottom + 'em');
-					if (currenttab != "") 
+					if (currenttab != "")
 						$(currenttab).scrollTop(prekeyboardscrollpos);
 				}
 			);
@@ -126,11 +127,11 @@
 			return false;
 		});
 
-	
-		
+
+
 
 		/* This is a visual patch for iOS devices where the phone uses a margin at the top
-		** for various status indicators. 
+		** for various status indicators.
 		*/
 		console.log("device.platform = " + device.platform);
 		if ((device.platform + "").toLowerCase() != 'browser') {
@@ -162,10 +163,10 @@
 			if (debug) console.log("onResume");
 
 			if (
-				currenttab != "#tabpinset1" && 
-				currenttab != "#tabpinset2"  && 
-				currenttab != "#tabsetpassphrase" && 
-				currenttab != "#tabrecovery" && 
+				currenttab != "#tabpinset1" &&
+				currenttab != "#tabpinset2"  &&
+				currenttab != "#tabsetpassphrase" &&
+				currenttab != "#tabrecovery" &&
 				currenttab != "#tabcorruptionprompt" &&
 				currenttab != "#tablicense" &&
 				currenttab != "#tabshowrecovery" &&
@@ -238,7 +239,7 @@
 		$('#payamount').on('click', stopClick);
 		$('#recoverypassword').on('click', stopClick);
 		$('#corruptionpp').on('click', stopClick);
-		$('#corruptionrp').on('click', stopClick);		
+		$('#corruptionrp').on('click', stopClick);
 
 		var toggleswitchfunc;
 		$(".toggleswitch").on('touchend',toggleswitchfunc = function() {
@@ -275,22 +276,6 @@
 
 	}
 </script>
-<div id="testnetwarning" style="
-    display: none;
-    position: fixed;
-    top: calc(50% - 8em);
-    color: red;
-    width: calc(100vw - 2em);
-    left: 1em;
-    background: white;
-    box-shadow: 10px 10px rgba(0,0,0,0.5);
-    border-radius: 5px;
-    z-index: 9999999999999999;
-    padding: 2em;
-"><button  type="button" class="btn btn-danger" style="float:right; max-width:3em; min-width:3em !important; max-height:3em; " ontouchend="$('#testnetwarning').hide();">X</button>
-<br><center><h2>WARNING THIS IS AN ALPHA</h2><p>Do NOT send real CSC. This wallet is connected to the CasinoCoin TESTNET.</p></center>
-</div>
-
 <div id="tabbackup2" class="screentab" data-primarytab="false" hasback="true" data-title="Encrypted Backup" style="display: none;">
     <h3 style="color:black; text-align:center;">The data below is your encrypted wallet backup</h3>
     <p style="color:black;">You should make a new backup whenever you add a new account to your wallet, change your passphrase or change your pin. CasinoCoin Mobile will prompt you when a new backup is required.</p>
@@ -304,21 +289,21 @@
 	<textarea oninput="$(this).val($(this).data('content'));" style="color:black;" id="walletbackup"></textarea>
 </div>
 
-<div id="tabrestore2" class="screentab" data-primarytab="false" data-hasback="true" data-title="Restore an Existing Wallet" style="padding-bottom: 0em;" data-dark="true" data-noright="true">  
+<div id="tabrestore2" class="screentab" data-primarytab="false" data-hasback="true" data-title="Restore an Existing Wallet" style="padding-bottom: 0em;" data-dark="true" data-noright="true">
     <p style="text-align:justify;">If you have a backup code you exported from another copy of CasinoCoin Mobile you can import it here. Doing so will create a copy of that wallet on this device.</p>
     <div>
     <label style="color:white;">Backup code</label>
     <input type="text" class="form-control" id="restorebackup2" style="color:black">
     </div>
-    
-    <br> 
+
+    <br>
     <div align="center">
-    
-    
+
+
     <button class="btn btn-success" ontouchend="doRestoreBackupFreshInstall();">Restore Backup</button></div>
 </div>
 
-<div id="tabrestore" class="screentab" data-primarytab="false" data-hasback="true" data-title="Restore Wallet" style="display: none;">  
+<div id="tabrestore" class="screentab" data-primarytab="false" data-hasback="true" data-title="Restore Wallet" style="display: none;">
     <p style="color:black; text-align:justify;">To restore a previously backed up wallet paste it below. This will DESTROY any data in your current wallet and cannot be undone. Further, this will restore your PIN, passphrase and recovery phrase AT THE TIME THE BACKUP WAS MADE.</p>
     <div>
     <label>Backup code</label>
@@ -333,10 +318,10 @@
     	<span class="toggleswitch"><i class="fa fa-toggle-off" aria-hidden="true"></i></span>
 	I understand this will <b style="color:red;">DESTROY</b> my current wallet.
     </p>
-    <br> 
+    <br>
     <div align="center">
-    
-    
+
+
     <button  class="btn btn-danger" ontouchend="doRestoreBackup();">Restore Backup</button></div>
 </div>
 <div id="tabshowrecovery" class="screentab" data-title="Your Recovery Phrase" data-primarytab="true" data-hasback="false" data-noright="true" style="display: none;">
@@ -415,7 +400,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
                 <input  type="password" id="nickchangepassword" class="form-control" placeholder="">
         </div><br>
 	<center><div>
-			<button  type="button" class="btn btn-primary" id="btnimport" 
+			<button  type="button" class="btn btn-primary" id="btnimport"
 				ontouchend="doChangeNickname($('#nickchangeaddress').val(), $('#nickchangenick').val(), $('#nickchangepassword').val());">Change Nickname</button></div></center>
 </div>
 
@@ -486,7 +471,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 
 
 <div id="tablogin" class="screentab" data-primarytab="true" data-title="CasinoCoin Mobile" data-dark="true" data-recovery="true" style="display: none;">
-    
+
 	<center>
 	<div class="pinpad" style="">
 	    <div class="pinnumber">
@@ -506,17 +491,17 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<button  ontouchend="doPinPad('6'); return false;"><div>6<i class="char">mno</i></div></button><br>
 	<button  ontouchend="doPinPad('7'); return false;"><div>7<i class="char">prqs</i></div></button>
 	<button  ontouchend="doPinPad('8'); return false;"><div>8<i class="char">tuv</i></div></button>
-	<button  ontouchend="doPinPad('9'); return false;"><div>9<i class="char">wxyz</i></div></button><br>	
+	<button  ontouchend="doPinPad('9'); return false;"><div>9<i class="char">wxyz</i></div></button><br>
 	<button  ontouchend="doPinPad('Help'); return false;"><div><i class="fa fa-question-circle" aria-hidden="true"></i></div></button>
 	<button  ontouchend="doPinPad('0'); return false;"><div>0</div></button>
 	<button  ontouchend="doPinPad(''); return false;"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></button>
 	</div>
 	</center>
-    
+
 </div>
 
 <div id="tabpinset1" class="screentab" data-primarytab="false" data-title="Set New PIN"  data-dark="2" data-noright="true" style="display: none;">
-    
+
 	<center>
 	<div class="pinpad" style="">
 	    <div class="pinnumber">
@@ -542,11 +527,11 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<button  ontouchend="doPinPad(''); return false;"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></button>
 	</div>
 	</center>
-    
+
 </div>
 
 <div id="tabpinset2" class="screentab" data-primarytab="false" data-hasback="true"  data-dark="2" data-noright="true" data-title="Repeat New PIN" style="display: none;">
-    
+
 	<center>
 	<div class="pinpad" style="">
 	    <div class="pinnumber">
@@ -572,7 +557,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<button  ontouchend="doPinPad(''); return false;"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></button>
 	</div>
 	</center>
-    
+
 </div>
 
 <div id="tabsetpassphrase" class="screentab" data-primarytab="true" data-title="Set Passphrase" data-noright="true" style="display:none">
@@ -651,7 +636,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
     </div>
 	<div class="paygrouping">
 	<label>Amount</label>
-	
+
     <div id="confirmpayamount"></div></div>
     <br>
         <label>Enter your Passphrase</label>
@@ -714,7 +699,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<div><center style="color:black;" class="deviceversion"></center></div>
 </div>
 
-<div id="tabrecovery" class="screentab" data-primarytab="false" data-hasback="true" data-title="Recovery Options"  data-noright="true" style="display: none;">  
+<div id="tabrecovery" class="screentab" data-primarytab="false" data-hasback="true" data-title="Recovery Options"  data-noright="true" style="display: none;">
     <div>
 	<label >Passphrase or Recovery Phrase</label><input  type="password" id="recoverypassword" class="form-control" placeholder="">
     </div>
@@ -749,7 +734,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<button class="btn btn-danger" type="button" ontouchend="doGenerateBackup();" style="min-width: 20em;">Create a Backup Now</button><br>
 	</div>
 	<br>
-	
+
 </center>
     <p></p></center></div>
 
@@ -763,7 +748,7 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 
 Version 2, June 1991
 
-Copyright (C) 1989, 1991 Free Software Foundation, Inc.  
+Copyright (C) 1989, 1991 Free Software Foundation, Inc.
 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 Everyone is permitted to copy and distribute verbatim copies
@@ -1746,13 +1731,8 @@ function showTab(tab, dontClearText) {
 				getLastBackupReminder(function(backupreminder) {
 					if (!('lastreminder' in backupreminder)) {
 						showBackupReminderTab();
-					} else {
-						donorreminder();
 					}
-
 				});
-			} else {
-				donorreminder();
 			}
 		});
 		
