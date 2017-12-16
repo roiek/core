@@ -435,7 +435,6 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 	<center>
 		<button  type="button" class="btn btn-primary" ontouchend="doShowAndGenerateAccount();">Generate New Address</button><br />
 		<button  type="button" class="btn btn-primary" ontouchend="showTab('#tabaddexistingaccount');">Add Existing Address</button><br />
-		<button type="button" class="btn btn-info" ontouchend="window.open('https://xrpvanity.com', '_system');">Get a Vanity Address</button>
 	</center>
 </div>
 
@@ -1406,11 +1405,11 @@ function getAccountInfo(address, successfunc, failurefunc) {
 	} else {
 		failurefunc();
 	}
-		  
 	});
 }
 
 function refreshAccounts() {
+    blockInput();
 	// delete all accounts in the list then readd them from puchdb	
 	var acc = $(".accountitem");
 	for (var i = 0; i < acc.length; i++) {
@@ -1429,8 +1428,6 @@ function refreshAccounts() {
 		}
 		if ((device.platform + "").toLowerCase() == 'browser') clickProxy();	
 	});
-
-
 
 	var updateaccs = function(exchangerate){
 		getAccounts(function(acc) {
@@ -1490,10 +1487,8 @@ function refreshAccounts() {
 		}
 		updateaccs(exchangerate);
 	}).catch( function(e) {
-		updateaccs(-1);		
+		updateaccs(-1);
 	});
-
-
 }
 
 var pinpadvalidate = function(pin) { return false ; }
@@ -1824,7 +1819,7 @@ function showTab(tab, dontClearText) {
 		clickProxy();
 	}
 
-	setTimeout(unblockInput, 200);
+	setTimeout(unblockInput, 500);
 }
 
 var generatedAccount = {};
