@@ -18,6 +18,7 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="buildArchitecture" value="armv7" />
     <preference name="xwalkMultipleApk" value="true" />
+    <preference name="phonegap-version" value="6.5.2" />
     <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />
     <plugin name="cordova-plugin-device" source="npm" spec="~1.1.1" />
     <plugin name="cordova-plugin-device-orientation" source="npm" spec="~1.0.2" />
@@ -122,7 +123,6 @@
         </gap:config-file>
     </platform>
     <plugin name="phonegap-plugin-barcodescanner" spec="~6.0.6" />
-    <engine name="android" spec="~6.1.2" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-plugin-screen-orientation" spec="~2.0.1" />
     <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0">
@@ -136,5 +136,6 @@
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.1" />
     <plugin name="cordova-plugin-battery-status" spec="~1.2.4" />
+    <engine name="android" spec="~6.1.2" />
     <engine name="browser" spec="~4.1.0" />
 </widget>
