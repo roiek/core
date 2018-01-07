@@ -1681,6 +1681,27 @@ function showTab(tab, dontClearText) {
 	setTimeout(unblockInput, 500);
 }
 
+function decodePaymentURI(uri, addrfield, dtagfield, amountfield, after) {
+	// remove preceeding garbage
+	uri = uri.replace(/^(?:[^?&]*send)?(.+)$/mg, "$1");
+	var paymentsRegex = /(?:[?&]?([a-z]+)=|^)([^&?\r\n]*)/mg;
+	var match = paymentsRegex.exec(uri);
+	while (match != null) {
+		var key = ( match[1] == undefined ? "" : (match[1]+"").toLowerCase() );
+		var val = ( match[2] == undefined ? "" : match[2] );
+		if ((key == "" || key == "to") && addrfield != undefined) {
+			$(addrfield).val(val);
+		} else if (key == "dt" && dtagfield != undefined) {
+			$(dtagfield).val(val);
+		} else if ((key == "amount" || key == "amt") && amountfield != undefined) {
+			$(amountfield).val(val);
+		}
+		match = paymentsRegex.exec(uri);
+	}
+	if (after != undefined)	return after();
+	return;
+}
+
 var generatedAccount = {};
 function doShowAndGenerateAccount() {
 	if (debug) console.log("doShowAndGenerateAccount");
