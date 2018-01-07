@@ -1,5 +1,5 @@
 {
-  "name": "CasinoCoinMobile",
+  "name": "casino-coin-mobile",
   "version": "1.0.0",
   "description": "CasinoCoin Mobile is a CasinoCoin wallet for Android and iOS.",
   "main": "electron-start.js",
@@ -15,7 +15,6 @@
   "author": "StarStone Limited",
   "license": "GPL 2.0",
   "devDependencies": {
-    "electron": "~1.6.2",
     "electron-builder": "^19.19.1"
   },
   "build": {
@@ -39,6 +38,7 @@
   "publisherName": "CasinoCoin",
   "verifyUpdateCodeSignature": "true",
   "dependencies": {
+<<<<<<< Updated upstream
     "menu": "^0.2.5",
     "cordova-android": "~6.1.2",
     "cordova-browser": "~4.1.0"
@@ -48,5 +48,9 @@
       "android",
       "browser"
     ]
+=======
+    "electron": "^1.7.9",
+    "menu": "^0.2.5"
+>>>>>>> Stashed changes
   }
 }
