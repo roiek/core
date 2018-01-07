@@ -996,6 +996,14 @@ function doResetPassphrase(pp1, pp2, oldpp, successfunc, firstrun) {
 	);
 }
 
+function existingAddrSecretSwap() {
+	if ($("#txtsecret").val()[0] == 'r' && $("#vanityaddr").val()[0] == 's') {
+		var x = $("#txtsecret").val();  
+		$("#txtsecret").val($("#vanityaddr").val()); 
+		$("#vanityaddr").val(x); 
+	}
+}
+
 var scanner;
 var timeatlastQR = 0;
 function scanQR(intofield1, intofield2, intofield3, parseContentFunc, after) {
@@ -1697,6 +1705,33 @@ function decodePaymentURI(uri, addrfield, dtagfield, amountfield, after) {
 			$(amountfield).val(val);
 		}
 		match = paymentsRegex.exec(uri);
+	}
+	if (after != undefined)	return after();
+	return;
+}
+
+function decodeSecretAddressURI(uri, secretfield, addrfield, defaultfield, after) {
+	uri = uri.replace(/^([a-z\/:.]+\/)?(.+)$/mg, "$2");
+	if (/^[^?&=]+$/m.test(uri) && defaultfield != undefined) {
+		// if this is a simple regex with no uri stuff then we'll just import it directly into the
+		// field next to the QR button
+		$(defaultfield).val(uri);
+	} else {
+		var addressRegex = /(?:[?&]?([a-z]+)=|^)([^&?\r\n]*)/mg;
+		var match = addressRegex.exec(uri);
+		var matchcount = 0;
+		while (match != null) {
+			matchcount++;
+			var key = ( match[1] == undefined ? "" : (match[1]+"").toLowerCase() );
+			var val = ( match[2] == undefined ? "" : match[2] );
+			var first = val.charAt(0) ;
+			if (first == 's' && secretfield != undefined) {
+				$(secretfield).val(val);
+			} else if ((first == 'r' || first == 'n') && addrfield != undefined) {
+				$(addrfield).val(val);
+			}
+			match = addressRegex.exec(uri);
+		}
 	}
 	if (after != undefined)	return after();
 	return;
