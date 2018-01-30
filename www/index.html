@@ -39,7 +39,7 @@
 <i id="morecontentindicator" class="fa fa-chevron-circle-down bounce" aria-hidden="true"></i>
 <script>
 	var debug = true;
-	var ontestnet = false;
+	var ontestnet = true;
 	var emergencybackup = false;
 
 	var cscreserve = 20; // this will be updated by querying the server when it connects, if there's an error getting this data the default will be used
@@ -782,7 +782,6 @@ I understand that the recovery phrase IS NOT A WALLET BACKUP.</p><br>
 
 
 <script>
-
 function blockInput(noloading) {
 	$("#inputblocker").show();
 	if (noloading == undefined || (noloading != undefined && !noloading)) $('body').addClass('liteloading');
@@ -1057,29 +1056,32 @@ function scanQR(intofield1, intofield2, intofield3, parseContentFunc, after) {
 	}
 }
 
+var currently_selected_account = "";
+
 function doSelectAccount(accselected, nickname) {
 	if (debug) console.log("doSelectAccount");
 	var acc = $(".accountitem");
 	for (var i = 0; i < acc.length; i++) {	
 		acc.removeClass("active");
 	}
-	$("#ra" + accselected).addClass("active");
-	activeaccount = accselected;
+	currently_selected_account = accselected;
+
+	$("#ra" + currently_selected_account).addClass("active");
 	$("#fromaccountslist>*:not(.bottom-list-button)").remove();
-	$("#fromaccountslist").prepend('<li class="list-group-item accountitem active"><a href="#"><span class="address">'+accselected+'</span></a><span class="amount">'+( accountbalances[accselected] == undefined ? '' :  accountbalances[accselected] + " CSC")+'</span></li>');
+	$("#fromaccountslist").prepend('<li class="list-group-item accountitem active"><a href="#"><span class="address">'+currently_selected_account+'</span></a><span class="amount">'+( accountbalances[currently_selected_account] == undefined ? '' :  accountbalances[currently_selected_account] + " CSC")+'</span></li>');
 
 
-	showTab("#tabaccountdetails");	
-	$("#accdetailsamount")[0].innerText = ( accountbalances[accselected] == undefined ? 0 :  accountbalances[accselected] ) + ' CSC';
-	$("#accdetailsaddress").data('content', accselected );
+	showTab("#tabaccountdetails");
+	$("#accdetailsamount")[0].innerText = (accountbalances[currently_selected_account] == undefined ? "(loading)" : accountbalances[currently_selected_account] + ' CSC');
+	$("#accdetailsaddress").data('content', currently_selected_account );
 
 	$("#accdetailsqr").empty();
-	$("#accdetailsqr").append(kjua({text: accselected}));
+	$("#accdetailsqr").append(kjua({text: currently_selected_account}));
 	
 	$("#accdetailsnickname")[0].innerText = (nickname == undefined || nickname == "" ? "CasinoCoin address" : nickname);
 
 	
-	$("#accdetailsaddress").val( accselected );
+	$("#accdetailsaddress").val( currently_selected_account );
 }
 
 
@@ -1255,6 +1257,9 @@ function getAccounts(callback) {
 	db.get("accounts").then(f).catch(f);
 }
 
+
+var usd_exchange_rate = -1;
+var accounts_required_for_activate_account = -1;
 function getAccountInfo(address, successfunc, failurefunc) {
 
   if (!validateAddress(address)) return failurefunc();
@@ -1276,9 +1281,9 @@ function getAccountInfo(address, successfunc, failurefunc) {
 }
 
 function refreshAccounts() {
-    blockInput();
 	// delete all accounts in the list then readd them from puchdb	
 	var acc = $(".accountitem");
+
 	for (var i = 0; i < acc.length; i++) {
 		acc[i].remove();
 	}
@@ -1295,68 +1300,99 @@ function refreshAccounts() {
 		}
 		if ((device.platform + "").toLowerCase() == 'browser') clickProxy();	
 	});
+	updateUsdExchangeRate();
+	getAccounts(function(acc) {
+		accountbalances = {};
+		accounts_required_for_activate_account = 0;
+		for (var account in acc) {
+			var e = (error) => {handleRefreshAccountsError(error, account)};
+			getAccountInfo(account, updateAccountsBalance, e).catch(e);
+			accounts_required_for_activate_account++;
+		};
+		updateActiveAccount();
+	});
 
-	var updateaccs = function(exchangerate){
-		getAccounts(function(acc) {
-			accountbalances = {};
-			for (var i in acc) {
+	if (isInitialization) {
+		isInitialization = false;
+		setInterval(refreshAccountsQuietly, 10000);
+	}
+}
 
-				((account) => {
-					var f = 
-					function(res) {
-						var cscBalance = parseInt(res.Balance) / 100000000.0;
+function refreshAccountsQuietly() {
+	getAccounts(function(acc) {
+		accountbalances = {};
+		for (var account in acc) {
 
-						if (debug) console.log("received account info for: " + account);
-						try {
-							var usdbalance = "";
-							if (exchangerate != -1) {
-								var amount = Math.floor(exchangerate * parseFloat("" + cscBalance))/1000.0;
-								usdbalance = '<br><div class="amount"><small style="opacity:0.7;">(' + amount.toFixed(2) + ' USD)</small></div>';
-							}
-							$("#ra" + account + ">.amount")[0].innerHTML = cscBalance + " CSC" + usdbalance;
-				
-						} catch(e) {handle_error(e);}
-						accountbalances[account] = parseFloat(cscBalance);
-
-						var balcount = Object.keys(accountbalances).length;
-						if (balcount > 0 && activeaccount == "") {
-							var largest = 0; var largestindex = 0;
-							for (var x in accountbalances) {
-								if (accountbalances[x] > largest) {
-									largest = accountbalances[x];
-									largestindx = x;
-								}
-							}
-							activeaccount = x;
-
-							$("#opt" + x).prop('selected', true);
-							$("#ra" + x).addClass('active');	
-						}
-					};
-
-					var e =
-					function(e) {
-						if (debug) console.log("account refresh error: " + e);
-						try {
-							$("#ra" + account + ">.amount")[0].innerText = "(not activated)";
-						} catch(e) {handle_error(e);}					
-					};
-
-					getAccountInfo(account, f, e).catch(e);
-				})(i);
-			}
-		});
-	};
-	getUsdExchangeRate().then(response => {
-		var exchangerate = -1;
-		if (response != undefined && response[0] != undefined && response[0].price_usd != undefined && response[0].price_usd != "") {
-			exchangerate = response[0].price_usd;
-		}
-		updateaccs(exchangerate);
-	}).catch( function(e) {
-		updateaccs(-1);
+			var e = (error) => {handleRefreshAccountsError(error, account)};
+			getAccountInfo(account, updateAccountsBalance, e).catch(e);
+		};
 	});
 }
+
+function updateUsdExchangeRate() {
+	getUsdExchangeRate().then(response => {
+		if (response != undefined && response[0] != undefined && response[0].price_usd != undefined && response[0].price_usd != "") {
+			usd_exchange_rate = response[0].price_usd;
+		}
+	}).catch( function(e) {
+		unblockInput();
+	});
+}
+
+function updateAccountsBalance(res) {
+	var cscBalance = parseInt(res.Balance) / 100000000.0;
+	var account = res.Account;
+	if (debug) console.log("received account info for: " + account);
+	try {
+		var usdbalance = "";
+		if (usd_exchange_rate != -1) {
+			var amount = Math.floor(usd_exchange_rate * parseFloat("" + cscBalance));
+			usdbalance = '<br><div class="amount"><small style="opacity:0.7;">(' + amount.toFixed(2) + ' USD)</small></div>';
+		}
+		$("#ra" + account + ">.amount")[0].innerHTML = cscBalance + " CSC" + usdbalance;
+
+	} catch(e) {handle_error(e);}
+	accountbalances[account] = parseFloat(cscBalance);
+	if (account == currently_selected_account) {
+		$("#accdetailsamount")[0].innerText = ( accountbalances[currently_selected_account] == undefined ? 0 :  accountbalances[currently_selected_account] ) + ' CSC';
+	}
+}
+
+function updateActiveAccount() {
+
+	var balcount = Object.keys(accountbalances).length;
+
+	if(accounts_required_for_activate_account != balcount) {
+		setTimeout(updateActiveAccount, 500);
+	}
+
+	var account_to_activate = "";
+
+	if (currently_selected_account != "") {
+		account_to_activate = currently_selected_account;
+	}
+	else if (balcount > 0) {
+		var largest = 0; var largestindex = 0;
+		for (var x in accountbalances) {
+			if (accountbalances[x] > largest) {
+				largest = accountbalances[x];
+				account_to_activate = x;
+			}
+		}
+	}
+	activeaccount = account_to_activate;
+
+	$("#opt" + account_to_activate).prop('selected', true);
+	$("#ra" + account_to_activate).addClass('active');	
+}
+
+function handleRefreshAccountsError(e, account) {
+	if (debug) console.log("account refresh error: " + e);
+	try {
+		$("#ra" + account + ">.amount")[0].innerText = "(not activated)";
+	} catch(e) {handle_error(e);}					
+};
+
 
 var pinpadvalidate = function(pin) { return false ; }
 var pinpadsuccess = function() {}
@@ -1497,6 +1533,7 @@ var previoustabs = [];
 var activeaccount = "";
 var accountbalances = {};
 var userkey = ""; // user's sha1 of passphrase used to decrypt wallet secrets
+var isInitialization = true;
 
 var screentabpaddingbottom = 0; // we use this when calcualting keyboard offset
 function showTab(tab, dontClearText) {
@@ -3630,7 +3667,6 @@ function doGetTransactions(address, marker) {
 		unblockInput();
 	});
 }
-
 </script>
 
 
